@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - 30000:27017
+    volumes:
+      - mongotest:/data/db
+  api:
+    build: ./
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    environment:
+      - port=3000
+volumes:
+  mongotest:
+
