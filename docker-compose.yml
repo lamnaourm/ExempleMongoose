@@ -1,18 +1,19 @@
 version: '3.8'
 services:
-  dbmongo: 
-    image: mongo
-    ports:
-      - 30000:27017
-    volumes:
-      - mydatamongo:/data/db
-  myapi:
-    build: ./
+  api:
+    build: .
     ports:
       - 3000:3000
     environment:
       - port=3000
+      - URL_MONGOOSE=mongodb://db:27017/dbpersonnes
     depends_on:
-      - dbmongo
+      - db
+  db:
+    image: mongo
+    ports:
+      - 30000:27017
+    volumes:
+      - testdb:/data/db
 volumes:
-  mydatamongo:
+  testdb:
